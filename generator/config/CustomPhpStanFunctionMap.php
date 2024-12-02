@@ -39,10 +39,20 @@ return [
     'openssl_x509_export' => ['bool', 'x509'=>'string|OpenSSLCertificate', '&w_output'=>'string', 'notext='=>'bool'],
     'openssl_x509_export_to_file' => ['bool', 'x509'=>'string|OpenSSLCertificate', 'outfilename'=>'string', 'notext='=>'bool'],
     'openssl_x509_fingerprint' => ['string|false', 'x509'=>'string|OpenSSLCertificate', 'hash_algorithm='=>'string', 'raw_output='=>'bool'],
-    
+
     'fgetcsv' => ['array|false|null', 'fp'=>'resource', 'length='=>'0|positive-int', 'delimiter='=>'string', 'enclosure='=>'string', 'escape='=>'string'], //phpstan default return type is too hard to analyse
     //todo: edit the reader to turn 0|1 into int
     'preg_match' => ['int|false', 'pattern'=>'string', 'subject'=>'string', '&w_subpatterns='=>'string[]', 'flags='=>'int', 'offset='=>'int'], //int|false instead of 0|1|false
     'stream_filter_prepend' => ['resource', 'stream' => 'resource', 'filtername' => 'string', 'read_write' => 'int', 'params' => 'mixed'], // params mixed instead of array
     'stream_filter_append' => ['resource', 'stream' => 'resource', 'filtername' => 'string', 'read_write' => 'int', 'params' => 'mixed'], // params mixed instead of array
+
+    // Fix for PHPStan these methods don't have definition in functionMap
+    // @see https://github.com/phpstan/phpstan-src/blob/2.0.x/resources/functionMap.php
+    'imagecreatefromavif' => ['GdImage|false', 'filename'=>'int'],
+    'imagecreatefromtga' => ['GdImage|false', 'filename'=>'int'],
+    'openssl_cipher_key_length' => ['int|false', 'cipher_algo'=>'string'],
+    'pg_lo_import' => ['string|int|false', 'connection'=>'PgSQL\Connection', 'pathname'=>'string', 'object_id' => 'mixed'],
+    'rnp_decrypt' => ['string|false', 'ffi'=>'RnpFFI', 'input'=>'string'],
+    'rnp_dump_packets_to_json' => ['string|false', 'input'=>'string', 'flags'=>'int'],
+    'rnp_dump_packets' => ['string|false', 'input'=>'string', 'flags'=>'int'],
 ];

@@ -23,12 +23,12 @@ class PhpStanFunctionMapReader
 
     public function hasFunction(string $functionName): bool
     {
-        return isset($this->functionMap[$functionName]);
+        return isset($this->functionMap[$functionName]) || isset($this->customFunctionMap[$functionName]);
     }
 
     public function getFunction(string $functionName): PhpStanFunction
     {
-        $map = $this->functionMap[$functionName];
+        $map = $this->functionMap[$functionName] ?? null;
         $customMap = $this->customFunctionMap[$functionName] ?? null;
         if ($map && $customMap) {
             if ($customMap === $map) {
@@ -36,6 +36,7 @@ class PhpStanFunctionMapReader
             }
             $map = $customMap;
         }
-        return new PhpStanFunction($map);
+
+        return new PhpStanFunction($map ?? $customMap);
     }
 }
